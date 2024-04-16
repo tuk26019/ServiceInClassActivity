@@ -8,7 +8,10 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
 
@@ -54,5 +57,26 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy(){
         super.onDestroy()
         unbindService(serviceConnection)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+        menuInflater.inflate(R.menu.main, menu)
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when (item.itemId){
+            R.id.start_item ->{timerBinder?.start(100)
+            return true}
+            R.id.stop_item ->{timerBinder?.stop()
+                return true}
+            R.id.pause_item ->{timerBinder?.pause()
+                return true}
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }
